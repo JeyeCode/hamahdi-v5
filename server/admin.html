@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>داشبورد مدیریت هم‌عهدی v5 (فقط نسخه وب)</title>
+  <link rel="icon" type="image/png" href="./icon-512.png" />
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./assets/css/app.css" />
+  <style>
+    body { font-family: "Vazirmatn", Tahoma, sans-serif; background: #040814; color: #f8fafc; }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col bg-[#040814] text-slate-100">
+  <header class="sticky top-0 z-40 bg-slate-950/90 backdrop-blur-xl border-b border-amber-400/25 px-4 py-3">
+    <div class="max-w-6xl mx-auto flex items-center justify-between gap-3">
+      <div class="flex items-center gap-3">
+        <img src="./icon-192.png" alt="هم‌عهدی" class="w-10 h-10 rounded-xl border border-amber-400/50" />
+        <div>
+          <h1 class="text-base sm:text-lg font-black text-amber-300">داشبورد مدیریت هم‌عهدی (نسخه وب)</h1>
+          <p class="text-[11px] text-slate-400">مدیریت آگهی‌های عهد بازار، غرفه‌ها، اسلایدر، استوری و کانال‌های عهدبات</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-2">
+        <span id="admin-status-pill" class="px-3 py-1 rounded-full text-xs font-bold bg-amber-500/15 border border-amber-400/40 text-amber-300">در انتظار ورود ادمین</span>
+        <button type="button" onclick="openAdminLoginModal()" class="px-3.5 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-black transition">ورود / تغییر حساب ادمین</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="app-main" class="flex-1 max-w-6xl w-full mx-auto px-4 py-6">
+    <div class="glass-panel rounded-3xl p-8 border border-amber-400/25 text-center space-y-4">
+      <div class="text-4xl">🛡️</div>
+      <h2 class="text-xl font-black text-white">ورود به پنل مدیریت تحت وب هم‌عهدی</h2>
+      <p class="text-sm text-slate-300 max-w-lg mx-auto">
+        این بخش جهت امنیت بیشتر به‌طور کامل از اپلیکیشن اندروید (APK) جدا شده و صرفاً از طریق مرورگر وب قابل دسترسی است.
+      </p>
+      <button type="button" onclick="openAdminLoginModal()" class="px-6 py-3 rounded-2xl bg-gradient-to-l from-amber-500 to-yellow-400 text-slate-950 font-black text-sm shadow-lg">
+        ورود به داشبورد مدیریت
+      </button>
+    </div>
+  </main>
+
+  <div id="modal-backdrop" class="fixed inset-0 z-[80] bg-slate-950/85 backdrop-blur-md hidden items-center justify-center p-4 overflow-y-auto">
+    <div id="modal-content" class="glass-panel rounded-3xl border border-white/20 max-w-3xl w-full overflow-hidden my-6 text-slate-100"></div>
+  </div>
+  <div id="toast-container" class="fixed bottom-6 left-4 z-[95] flex flex-col gap-2 max-w-sm w-full pointer-events-none"></div>
+
+  <script defer src="./assets/js/core/state.js"></script>
+  <script defer src="./assets/js/core/api_client.js"></script>
+  <script defer src="./assets/js/modules/auth.js"></script>
+  <script defer src="./assets/js/modules/market.js"></script>
+  <script defer src="./assets/js/modules/booth.js"></script>
+  <script defer src="./assets/js/modules/messages.js"></script>
+  <script defer src="./assets/js/modules/admin.js"></script>
+  <script>
+    window.addEventListener('DOMContentLoaded', async function() {
+      window.HAMAHDI_WEB_ADMIN_ONLY = true;
+      if (typeof syncStateFromServer === 'function') {
+        await syncStateFromServer();
+      }
+      if (state && state.currentUser && state.currentUser.role === 'admin') {
+        const pill = document.getElementById('admin-status-pill');
+        if (pill) pill.textContent = 'مدیر فعال: ' + (state.currentUser.username || 'admin');
+        if (typeof renderAdminDashboardPage === 'function') {
+          renderAdminDashboardPage();
+        }
+      } else if (typeof openAdminLoginModal === 'function') {
+        openAdminLoginModal();
+      }
+    });
+  </script>
+</body>
+</html>

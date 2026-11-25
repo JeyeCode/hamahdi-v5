@@ -1,0 +1,11 @@
+node_modules/
+android_app/node_modules/
+android_app/android/.gradle/
+android_app/android/build/
+android_app/android/app/build/
+server/storage/data/*.sqlite-wal
+server/storage/data/*.sqlite-shm
+server/storage/bot_storage/ai_chats/
+*.log
+.DS_Store
+Thumbs.db

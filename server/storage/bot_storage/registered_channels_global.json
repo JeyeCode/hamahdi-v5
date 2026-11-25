@@ -1,0 +1,26 @@
+{
+    "rubika::joing\/bbhjbebch0weqecknwxvvkuirrheuxip": {
+        "platform": "rubika",
+        "channel_id": "@joing\/BBHJBEBCH0WEQECKNWXVVKUIRRHEUXIP",
+        "target_type": "group",
+        "owner_username": "admin",
+        "members_count": 0,
+        "registered_at": "2026-11-23 20:06:07"
+    },
+    "telegram::hamahdiweb": {
+        "platform": "telegram",
+        "channel_id": "@hamahdiweb",
+        "target_type": "channel",
+        "owner_username": "admin",
+        "members_count": 0,
+        "registered_at": "2026-11-23 20:08:15"
+    },
+    "rubika::hamahdiweb": {
+        "platform": "rubika",
+        "channel_id": "@hamahdiweb",
+        "target_type": "channel",
+        "owner_username": "admin",
+        "members_count": 0,
+        "registered_at": "2026-11-23 20:09:56"
+    }
+}
