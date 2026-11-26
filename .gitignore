@@ -9,3 +9,8 @@ server/storage/bot_storage/ai_chats/
 *.log
 .DS_Store
 Thumbs.db
+
+# امنیت محرمانه: هرگز کلیدهای API به گیت‌هاب ارسال نشوند
+.env
+**/.env
+server/.env

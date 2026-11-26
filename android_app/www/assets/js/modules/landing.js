@@ -518,6 +518,7 @@
     }
 
     function renderCurrentPage(fromPopState = false) {
+      if (typeof syncV5BottomNav === 'function') syncV5BottomNav(state.currentPage);
       const container = document.getElementById('main-view-container');
       if (!container) return;
       updateFooterAndAdminBar();

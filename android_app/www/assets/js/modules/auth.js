@@ -1310,3 +1310,80 @@
         </div>
       `;
     }
+
+
+    // HAMAHDI v5.0 Production: غیرفعال‌سازی کامل ورود مدیریت در APK + مودال یکپارچه حساب من
+    function openDirectAdminLoginModal() { return; }
+    function openAdminLoginModal() { return; }
+    function navigateToAdminDashboard() { return; }
+    function openMobileUserDrawer() { openV5MyAccountModal(); }
+    function closeMobileUserDrawer() { if (typeof closeModal === 'function') closeModal(); }
+    function openAdminSideDrawer() { openV5MyAccountModal(); }
+
+    function syncV5BottomNav(activeKey) {
+      const map = {
+        landing: 'bnav-home',
+        hamahd_spiritual: 'bnav-home',
+        market: 'bnav-market',
+        booth: 'bnav-account',
+        messages: 'bnav-account',
+        social_bot: 'bnav-bot',
+        ahdbot_ai: 'bnav-ai',
+        account: 'bnav-account'
+      };
+      const targetId = map[activeKey || (state && state.currentPage) || 'landing'] || 'bnav-home';
+      document.querySelectorAll('#hm-v5-bottom-nav .hm-bnav-item').forEach(el => {
+        el.classList.toggle('active', el.id === targetId);
+      });
+    }
+
+    function openV5MyAccountModal() {
+      const u = (state && state.currentUser) || {};
+      const loggedIn = !!(u.username && u.role !== 'guest');
+      const isLight = (typeof getThemeMode === 'function') && getThemeMode() === 'light';
+      const html = `
+        <div class="p-5 space-y-4 text-right" dir="rtl">
+          <div class="flex items-center justify-between border-b border-white/15 pb-3">
+            <div class="flex items-center gap-3">
+              <img src="./icon-192.png" alt="هم‌عهدی" class="w-11 h-11 rounded-2xl border border-amber-400/50 shadow" />
+              <div>
+                <div class="font-black text-amber-300 text-sm">${loggedIn ? escapeHtml(u.display_name || u.username) : 'حساب کاربری هم‌عهدی'}</div>
+                <div class="text-[11px] text-slate-400">${loggedIn ? ('نام کاربری: ' + escapeHtml(u.username)) : 'برای ثبت آگهی، سفارش و عهدبات وارد شوید'}</div>
+              </div>
+            </div>
+            <button type="button" onclick="closeModal()" class="w-8 h-8 rounded-xl bg-white/10 font-bold">✕</button>
+          </div>
+
+          <div class="grid grid-cols-2 gap-2.5 text-xs">
+            <button type="button" onclick="closeModal(); handleMobileBoothOrLogin();" class="p-3 rounded-2xl glass-card font-black text-center space-y-1">
+              <div class="text-xl">🏪</div><div>غرفه من و سفارش‌ها</div>
+            </button>
+            <button type="button" onclick="closeModal(); openShoppingCartModal();" class="p-3 rounded-2xl glass-card font-black text-center space-y-1">
+              <div class="text-xl">🛒</div><div>سبد خرید</div>
+            </button>
+            <button type="button" onclick="closeModal(); openMessagesCenterPage('chats', 'market');" class="p-3 rounded-2xl glass-card font-black text-center space-y-1">
+              <div class="text-xl">💬</div><div>پیام‌ها و گفتگوها</div>
+            </button>
+            <button type="button" onclick="closeModal(); openHamahdSpiritualPage();" class="p-3 rounded-2xl glass-card font-black text-center space-y-1">
+              <div class="text-xl">📖</div><div>هم‌عهد (میثاق معنوی)</div>
+            </button>
+          </div>
+
+          <button type="button" onclick="toggleThemeMode(); openV5MyAccountModal();" class="w-full p-3 rounded-2xl glass-card font-black text-xs flex items-center justify-between">
+            <span>${isLight ? '🌙 تغییر به حالت تاریک-طلایی' : '☀️ تغییر به حالت روشن (لایت‌مود)'}</span>
+            <span>🎨</span>
+          </button>
+
+          ${loggedIn ? `
+            <button type="button" onclick="closeModal(); logoutSession();" class="w-full py-3 rounded-2xl bg-rose-600 text-white font-black text-xs shadow">
+              خروج از حساب کاربری
+            </button>
+          ` : `
+            <button type="button" onclick="closeModal(); openResidentAuthModal();" class="w-full py-3 rounded-2xl bg-gradient-to-l from-amber-500 to-yellow-400 text-slate-950 font-black text-xs shadow">
+              ورود / ثبت‌نام در هم‌عهدی
+            </button>
+          `}
+        </div>
+      `;
+      if (typeof openModal === 'function') openModal(html);
+    }

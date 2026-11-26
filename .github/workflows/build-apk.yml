@@ -36,6 +36,7 @@ jobs:
             mv android android_custom_backup
             npx cap add android
             cp -f android_custom_backup/app/src/main/AndroidManifest.xml android/app/src/main/AndroidManifest.xml
+            rm -rf android/app/src/main/res/mipmap-anydpi-v26
             cp -rf android_custom_backup/app/src/main/res/* android/app/src/main/res/
             cp -f android_custom_backup/app/src/main/java/ir/hamahdi/app/MainActivity.java android/app/src/main/java/ir/hamahdi/app/MainActivity.java
             rm -rf android_custom_backup

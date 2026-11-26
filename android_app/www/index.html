@@ -181,6 +181,7 @@
     }
   </style>
   <link rel="stylesheet" href="./assets/css/app.css?v=5.0.0" />
+  <link rel="stylesheet" href="./assets/css/v5_theme_polish.css?v=5.0.1" />
 </head>
 <body class="min-h-screen flex flex-col">
   <!-- Splash Screen مطابق تم تاریک-طلایی هم‌عهدی -->
@@ -217,7 +218,7 @@
           document.body.classList.remove('light-theme');
         }
         var ensureAppCssLast = function() {
-          var appLink = document.querySelector('link[href*="assets/css/app.css"]');
+          var appLink = document.querySelector('link[href*="v5_theme_polish.css"]') || document.querySelector('link[href*="assets/css/app.css"]');
           if (appLink && appLink.parentNode && appLink.nextElementSibling) {
             appLink.parentNode.appendChild(appLink);
           }
@@ -333,6 +334,32 @@
       <button type="button" id="mob-nav-account" onclick="handleMobileBoothOrLogin()" class="mobile-nav-btn">
         <svg viewBox="0 0 24 24" class="svg-icon text-base text-cyan-400" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><path d="M17 11l2 2 4-4"/></svg>
         <span id="mobile-nav-booth-label">حساب من</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- نوار ناوبری پایین یکپارچه موبایل هم‌عهدی نسخه ۵ (جایگزین منوی کشویی) -->
+  <nav id="hm-v5-bottom-nav" aria-label="منوی اصلی پایین موبایل">
+    <div class="hm-bnav-grid">
+      <button type="button" id="bnav-home" onclick="returnToLandingPage(); syncV5BottomNav('landing');" class="hm-bnav-item active">
+        <span class="hm-bnav-ic">🏠</span>
+        <span>خانه</span>
+      </button>
+      <button type="button" id="bnav-market" onclick="handleActiveMarketCardClick(); syncV5BottomNav('market');" class="hm-bnav-item">
+        <span class="hm-bnav-ic">🏪</span>
+        <span>عهدبازار</span>
+      </button>
+      <button type="button" id="bnav-bot" onclick="handleEntryToAhdbotClick(); syncV5BottomNav('social_bot');" class="hm-bnav-item">
+        <span class="hm-bnav-ic">🤖</span>
+        <span>عهدبات</span>
+      </button>
+      <button type="button" id="bnav-ai" onclick="openHamahdiAiChatPage(); syncV5BottomNav('ahdbot_ai');" class="hm-bnav-item">
+        <span class="hm-bnav-ic">✨</span>
+        <span>عهدهوش</span>
+      </button>
+      <button type="button" id="bnav-account" onclick="openV5MyAccountModal(); syncV5BottomNav('account');" class="hm-bnav-item">
+        <span class="hm-bnav-ic">👤</span>
+        <span>حساب من</span>
       </button>
     </div>
   </nav>
